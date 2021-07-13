@@ -21,7 +21,7 @@
 
 **Issues:**
 
-I have an issue with my phpunit. The php my system has is @7.3. It is default php shipped with MacOS. I need to install php via brew and reconfig it as the default interpreter.
+I have an issue with my phpunit. The php I has installed is @7.3. It is the default version shipped with MacOS. I need to install php via brew and reconfig it as the default instead.
 But it doesn't work out yet. I just write several feature tests for post model. As there is no way for me to run the tests, I decided not to write more until this issue is fixed.
 I will update more tests when I get the latest PHP installed.
 ```
