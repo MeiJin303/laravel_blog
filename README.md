@@ -10,3 +10,8 @@ Database Config:
     DB_USERNAME=admin
     DB_PASSWORD=123456
 ```
+
+Setup Cron for FeedImportScheduler
+```
+* * * * * php /path/to/artisan schedule:run 1>> /dev/null 2>&1
+```
