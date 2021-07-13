@@ -12,6 +12,11 @@
     DB_PASSWORD=123456
 ```
 
+**Cache Driver:**
+
+For the simplicity, I choose to use the database cache driver. We could use redis or DynamoDB to achieve a better preformance.
+The data structure I used is 
+
 
 **Setup Cron for FeedImportScheduler:**
 ```
