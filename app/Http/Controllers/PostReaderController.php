@@ -23,9 +23,9 @@ class PostReaderController extends Controller
         $startPage = $request->input('startPage');
         if (!$startPage)    $startPage = 1;
 
-        extract($this->readFromCache($currentPage));
+        extract($this->readFromCache());
 
-        $posts = $posts->slice($this->perPage*($currentPage-1)+1, $this->perPage);
+        $posts = $posts->slice($this->perPage*($currentPage-1), $this->perPage);
         return view('welcome', compact('posts', 'total', 'currentPage', 'startPage'));
     }
 
@@ -44,7 +44,7 @@ class PostReaderController extends Controller
         });
 
         $total = $posts->count();
-        $posts = $posts->slice($this->perPage*($currentPage-1)+1, $this->perPage);
+        $posts = $posts->slice($this->perPage*($currentPage-1), $this->perPage);
         return view('dashboard', compact('posts', 'total', 'currentPage', 'startPage'));
     }
 

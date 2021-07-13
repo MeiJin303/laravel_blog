@@ -27,23 +27,24 @@ class PostObserver
          * get the total entry number from the cache,
          * use it to calculate queue id
          */
-        $total = $this->cache->rememberForever(self::CACHE_KEY_AMOUNT_OF_POSTS, function() {
+        $this->cache->rememberForever(self::CACHE_KEY_AMOUNT_OF_POSTS, function() {
             return Post::all()->count();
         });
         /**
-         * append the $post->id to the top of the queue
+         * append the $post to the top of the queue
          */
         $queue = $this->cache->get(self::CACHE_KEY_POSTS_QUEUE, function() {
-            return Post::all()->orderByDesc('created_at')->get();
+            return Post::orderByDesc('created_at')->get();
         });
         $queue->prepend($post);
-        $this->cache->forget(self::CACHE_KEY_USER_POSTS_PREFIX.$post->user_id);
         try{
-            $this->cache->add(self::CACHE_KEY_POSTS_QUEUE, $queue, now()->addDays(10));
+            $this->cache->put(self::CACHE_KEY_POSTS_QUEUE, $queue, now()->addDays(10));
         } catch(CacheException $e) {
-            die();
+            error_log(json_encode($e));
+            return;
         }
 
+        $this->cache->forget(self::CACHE_KEY_USER_POSTS_PREFIX.$post->user_id);
         // increment the amount of posts by 1
         $this->cache->increment(self::CACHE_KEY_AMOUNT_OF_POSTS);
     }
