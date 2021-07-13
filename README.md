@@ -15,7 +15,7 @@
 **Cache Driver:**
 
 For the simplicity, I choose to use the database cache driver. We could use redis or DynamoDB to achieve a better preformance.
-The data structure I used is 
+The data structure I used is array. As the post list would always retrieve top items, we could use max-heap to save top hitters. It would only use O(logN) time to insert. Using array needs O(NlogN), as we have to sort the array after each insertion.
 
 
 **Setup Cron for FeedImportScheduler:**
